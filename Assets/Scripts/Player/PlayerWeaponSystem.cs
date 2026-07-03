@@ -1,0 +1,49 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace Player
+{
+    public class PlayerWeaponSystem : PlayerSystem
+    {
+        [SerializeField] private GameObject weapon;
+
+        public event Action OnShoot;
+        public event Action<Vector3> MouseHasChanged;
+        private void OnEnable()
+        {
+            main.InputActions.Gameplay.Enable();
+            main.InputActions.Gameplay.MousePosition.performed += GetMousePosition;
+            main.InputActions.Gameplay.Shoot.started += ShootOnstarted;
+        }
+
+        private void ShootOnstarted(InputAction.CallbackContext obj)
+        {
+            OnShoot?.Invoke();
+        }
+
+        private void GetMousePosition(InputAction.CallbackContext obj)
+        {
+            Vector2 mousePos = obj.ReadValue<Vector2>();
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            worldPos.z = 0;
+
+            Vector3 direction = worldPos - weapon.transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            if (worldPos.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+                angle += 180f;
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+
+            weapon.transform.eulerAngles = new Vector3(0, 0, angle);
+            MouseHasChanged?.Invoke(direction.normalized);
+            
+        }
+    }
+}
