@@ -34,6 +34,7 @@ namespace Weapons
         private float timeShoot;
         private float timeReloading;
         private bool hasShooted;
+        private bool isShooting = false;
         private int currentAmmo;
 
         private void Awake()
@@ -43,15 +44,44 @@ namespace Weapons
             pool = new ObjectPool<BulletPool>(CreateBullet, GetBullet, ReleaseBullet);
             currentAmmo = Mathf.RoundToInt(weaponInstance.Ammo);
         }
+        
+        private void OnEnable()
+        {
+            _playerWeaponSystem.OnShoot += PlayerMainOnOnShoot;
+            _playerWeaponSystem.MouseHasChanged += GetDirection;
+            uIManager.GettingThisUpgrade += UIManagerOnGettingThisUpgrade;
+        }
+
+        private void OnDisable()
+        {
+            _playerWeaponSystem.OnShoot -= PlayerMainOnOnShoot;
+            _playerWeaponSystem.MouseHasChanged -= GetDirection;
+            uIManager.GettingThisUpgrade -= UIManagerOnGettingThisUpgrade;
+        }
+        
+        private void PlayerMainOnOnShoot(bool obj)
+        {
+            isShooting = obj;
+        }
 
         private void Update()
         {
-            if (hasShooted)
+            if (isShooting)
             {
+                if (!hasShooted && currentAmmo >0)
+                {
+                    hasShooted = true;
+                    pool.Get();
+                    currentAmmo--;
+                } 
+            }
+            
+            if (hasShooted)
+            { 
                 timeShoot += Time.deltaTime;
                 if (timeShoot >= weaponInstance.ShootCooldown)
-                {
-                    hasShooted = false;
+                { 
+                    hasShooted = false; 
                     timeShoot = 0f;
                 }
             }
@@ -67,20 +97,6 @@ namespace Weapons
             }
         }
 
-        private void OnEnable()
-        {
-            _playerWeaponSystem.OnShoot += PlayerMainOnOnShoot;
-            _playerWeaponSystem.MouseHasChanged += GetDirection;
-            uIManager.GettingThisUpgrade += UIManagerOnGettingThisUpgrade;
-        }
-
-        private void OnDisable()
-        {
-            _playerWeaponSystem.OnShoot -= PlayerMainOnOnShoot;
-            _playerWeaponSystem.MouseHasChanged -= GetDirection;
-            uIManager.GettingThisUpgrade -= UIManagerOnGettingThisUpgrade;
-        }
-
         public void BulletOnBulletHitSomething(IDamageable obj)
         {
             obj.TakeDamage(weaponInstance.Damage);
@@ -89,16 +105,6 @@ namespace Weapons
         private void GetDirection(Vector3 obj)
         {
             direction = obj;
-        }
-
-        private void PlayerMainOnOnShoot()
-        {
-            if (!hasShooted && currentAmmo >0)
-            {
-                pool.Get();
-                hasShooted = true;
-                currentAmmo--;
-            }
         }
         
         private void ReleaseBullet(BulletPool obj)
@@ -115,6 +121,7 @@ namespace Weapons
         {
             obj.gameObject.SetActive(true);
             obj.transform.position = transform.position;
+            obj.ResetTrail();
             obj.transform.right = direction;
             obj.Init(this);
         }

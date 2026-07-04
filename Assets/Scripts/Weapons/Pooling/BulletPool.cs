@@ -12,13 +12,18 @@ namespace Weapons.Pooling
         private WeaponLogic owner;
         private Rigidbody2D rb;
         private Vector3 originalPosition;
-
-        
+        private TrailRenderer trailRenderer;
         public ObjectPool<BulletPool> MyPool { get; set; }
-
+        
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            trailRenderer = GetComponent<TrailRenderer>();
+        }
+        
+        public void ResetTrail()
+        {
+            if (trailRenderer != null) trailRenderer.Clear();
         }
 
         public void Init(WeaponLogic weapon)

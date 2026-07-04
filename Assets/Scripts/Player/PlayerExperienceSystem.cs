@@ -30,7 +30,8 @@ namespace Player
         {
             if (main.CurrentExperience >= main.MaxExperience)
             {
-                main.CurrentExperience = 0;
+                float remainExp = main.CurrentExperience - main.MaxExperience;
+                main.CurrentExperience = remainExp;
                 float expIncrement = ((main.MaxExperience * expIncremental));
                 main.MaxExperience += expIncrement;
                 Debug.Log($"Subí de nivel, ahora necesito {main.MaxExperience}");

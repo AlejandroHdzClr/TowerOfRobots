@@ -1348,8 +1348,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2152058230164781738, guid: e5fbaa0531a775448ab35636114636ba, type: 3}
+      propertyPath: m_Size.x
+      value: 2.1333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152058230164781738, guid: e5fbaa0531a775448ab35636114636ba, type: 3}
+      propertyPath: m_Size.y
+      value: 2.1333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152058230164781738, guid: e5fbaa0531a775448ab35636114636ba, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 340982ddf239fb14da06c4cb7dae29f6, type: 3}
+    - target: {fileID: 2152058230164781738, guid: e5fbaa0531a775448ab35636114636ba, type: 3}
       propertyPath: m_SortingOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152058230164781738, guid: e5fbaa0531a775448ab35636114636ba, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3598875362372972105, guid: e5fbaa0531a775448ab35636114636ba, type: 3}
       propertyPath: m_Name
@@ -1397,7 +1413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9811d653402c4b3595733dce39c18ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.WeaponLogic
-  weaponData: {fileID: 11400000, guid: c652569f35ca53540ae84f4da1fde0e0, type: 2}
+  weaponData: {fileID: 11400000, guid: 8072afab1f6d893448f51286c168b59b, type: 2}
   bullet: {fileID: 180925949127525283, guid: 0263079e64109394494ff6394b77c405, type: 3}
   uIManager: {fileID: 76527257}
 --- !u!1001 &7673281015996665728

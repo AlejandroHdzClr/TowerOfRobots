@@ -8,18 +8,30 @@ namespace Player
     {
         [SerializeField] private GameObject weapon;
 
-        public event Action OnShoot;
+        public event Action<bool> OnShoot;
         public event Action<Vector3> MouseHasChanged;
         private void OnEnable()
         {
             main.InputActions.Gameplay.Enable();
             main.InputActions.Gameplay.MousePosition.performed += GetMousePosition;
-            main.InputActions.Gameplay.Shoot.started += ShootOnstarted;
+            main.InputActions.Gameplay.Shoot.started += ShootOnStarted;
+            main.InputActions.Gameplay.Shoot.canceled += OnShootEnded;
+        }
+        
+        private void OnDisable()
+        {
+            main.InputActions.Gameplay.Disable();
+            main.InputActions.Gameplay.MousePosition.performed -= GetMousePosition;
+            main.InputActions.Gameplay.Shoot.started -= ShootOnStarted;
+            main.InputActions.Gameplay.Shoot.canceled -= OnShootEnded;
         }
 
-        private void ShootOnstarted(InputAction.CallbackContext obj)
+        private void ShootOnStarted(InputAction.CallbackContext obj)
         {
-            OnShoot?.Invoke();
+            OnShoot?.Invoke(true);
+        }private void OnShootEnded(InputAction.CallbackContext obj)
+        {
+            OnShoot?.Invoke(false);
         }
 
         private void GetMousePosition(InputAction.CallbackContext obj)
