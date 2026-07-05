@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba09ffac385471948b0b6fa70ba984fd, type: 3}
-  m_Name: AssaultRifle
+  m_Name: ShotGun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  <Ammo>k__BackingField: 30
-  <TimeReloading>k__BackingField: 5
-  <ShootCooldown>k__BackingField: 0.2
-  <Dispersion>k__BackingField: 5
-  <NumberOfBullets>k__BackingField: 1
-  <Damage>k__BackingField: 1
-  <Distance>k__BackingField: 30
+  <Ammo>k__BackingField: 5
+  <TimeReloading>k__BackingField: 4
+  <ShootCooldown>k__BackingField: 0.8
+  <Dispersion>k__BackingField: 20
+  <NumberOfBullets>k__BackingField: 4
+  <Damage>k__BackingField: 2
+  <Distance>k__BackingField: 10
   <EffectsList>k__BackingField: []

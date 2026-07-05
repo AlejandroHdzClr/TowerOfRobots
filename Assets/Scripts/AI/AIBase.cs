@@ -13,6 +13,7 @@ public class AIBase : MonoBehaviour, IDamageable
     [SerializeField] private float separationWeight = 1f; // fuerza de la separación
 
     private float currentHealth;
+    private bool imDead=false;
     private Collider2D[] colliders;
     private Collider2D ownCollider;
     private Vector3 direction;
@@ -63,9 +64,13 @@ public class AIBase : MonoBehaviour, IDamageable
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Debug.Log("He muerto");
-            Instantiate(expOrb, transform.position, transform.rotation);
-            Destroy(gameObject);
+            if (!imDead)
+            {
+                Debug.Log("He muerto");
+                Instantiate(expOrb, transform.position, transform.rotation);
+                imDead = true;
+                Destroy(gameObject);
+            }
         }
         else
         {

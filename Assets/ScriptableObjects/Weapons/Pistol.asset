@@ -15,7 +15,8 @@ MonoBehaviour:
   <Ammo>k__BackingField: 8
   <TimeReloading>k__BackingField: 2
   <ShootCooldown>k__BackingField: 0.5
-  <Dispersion>k__BackingField: 0
+  <Dispersion>k__BackingField: 5
+  <NumberOfBullets>k__BackingField: 1
   <Damage>k__BackingField: 5
   <Distance>k__BackingField: 25
   <EffectsList>k__BackingField: []

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using Upgrades.Weapons;
 using Weapons.Pooling;
+using Random = UnityEngine.Random;
 
 namespace Weapons
 {
@@ -19,9 +20,15 @@ namespace Weapons
     
     public class WeaponLogic : MonoBehaviour
     {
+        
         [SerializeField] private WeaponData weaponData;
         [SerializeField] private BulletPool bullet;
         [SerializeField] private UIManager uIManager;
+        
+        [Header("Camera Shake")]
+        [SerializeField] private float forcePerBullet = 0.1f;
+        [SerializeField] private float referenceDamage = 10f;
+        [SerializeField] private float maxShakeForce = 2f;
         
         public ObjectPool<BulletPool> pool { get; private set; }
         
@@ -29,12 +36,16 @@ namespace Weapons
         private Vector3 direction;
         
         private WeaponData weaponInstance;
-        
+
+        private float minAngle;
+        private float maxAngle;
         
         private float timeShoot;
         private float timeReloading;
+        
         private bool hasShooted;
         private bool isShooting = false;
+        
         private int currentAmmo;
 
         private void Awake()
@@ -43,6 +54,8 @@ namespace Weapons
             _playerWeaponSystem = GetComponentInParent<PlayerWeaponSystem>();
             pool = new ObjectPool<BulletPool>(CreateBullet, GetBullet, ReleaseBullet);
             currentAmmo = Mathf.RoundToInt(weaponInstance.Ammo);
+            minAngle = -weaponInstance.Dispersion / 2;
+            maxAngle = weaponInstance.Dispersion / 2;
         }
         
         private void OnEnable()
@@ -71,8 +84,18 @@ namespace Weapons
                 if (!hasShooted && currentAmmo >0)
                 {
                     hasShooted = true;
-                    pool.Get();
+                    for (int i = 0; i < weaponInstance.NumberOfBullets; i++)
+                    {
+                        pool.Get();
+                    }
                     currentAmmo--;
+                    
+                    float totalForce = Mathf.Clamp(
+                        weaponInstance.NumberOfBullets * forcePerBullet * (weaponInstance.Damage / referenceDamage),
+                        0f,
+                        maxShakeForce
+                    );
+                    CameraEventsManager.RequestShake(totalForce);
                 } 
             }
             
@@ -122,8 +145,23 @@ namespace Weapons
             obj.gameObject.SetActive(true);
             obj.transform.position = transform.position;
             obj.ResetTrail();
-            obj.transform.right = direction;
+            obj.transform.right = GetDispersionBullet();
             obj.Init(this);
+        }
+
+        private Vector2 GetDispersionBullet()
+        {
+            float angle = Random.Range(minAngle, maxAngle);
+            angle *= Mathf.Deg2Rad;
+            float cos = Mathf.Cos(angle);
+            float sin = Mathf.Sin(angle);
+
+            Vector2 baseDirection = direction;
+    
+            return new Vector2(
+                baseDirection.x * cos - baseDirection.y * sin,
+                baseDirection.x * sin + baseDirection.y * cos
+            );
         }
 
         private BulletPool CreateBullet()
@@ -156,12 +194,20 @@ namespace Weapons
                     break;
                 case WeaponDataName.Dispersion:
                     weaponInstance.Dispersion = ChangeStat(weaponInstance.Dispersion, change, type);
+                    minAngle = -weaponInstance.Dispersion / 2;
+                    maxAngle = weaponInstance.Dispersion / 2;
                     break;
                 case WeaponDataName.ReloadTime:
                     weaponInstance.TimeReloading = ChangeStat(weaponInstance.TimeReloading, change, type);
                     break;
                 case WeaponDataName.Damage:
                     weaponInstance.Damage = ChangeStat(weaponInstance.Damage, change, type);
+                    break;
+                case WeaponDataName.Distance:
+                    weaponInstance.Distance = ChangeStat(weaponInstance.Distance, change, type);
+                    break;
+                case WeaponDataName.NumberOfBullets:
+                    weaponInstance.NumberOfBullets = Mathf.RoundToInt(ChangeStat(weaponInstance.NumberOfBullets, change, type));
                     break;
             }
         }
