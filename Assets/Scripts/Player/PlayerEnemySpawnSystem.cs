@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +11,31 @@ namespace Player
         [SerializeField] private float maxRadius;
         [SerializeField] private float time;
         [SerializeField] private AIBase prefab;
+        [SerializeField] private TimeManager timeManager;
+        [SerializeField] private float scale;
         private float currentTime;
+
+        public event Action<float> EnemySpawn;
+
+        private void OnEnable()
+        {
+            timeManager.OnCapEntered += TimeChange;
+        }
+
+        private void TimeChange(float obj)
+        {
+            scale += obj;
+            
+            if (time > 0.1f)
+            {
+                time -= obj;
+            }
+
+            if (time < 0.1f)
+            {
+                time = 0.1f;
+            }
+        }
 
         private void GettingVector()
         {
@@ -20,6 +45,7 @@ namespace Player
             Vector2 position = (Vector2)transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
             AIBase enemy = Instantiate(prefab, position, Quaternion.identity);
             enemy.enemyPosition = transform;
+            enemy.enemySpawnSystem = this;
         }
 
         private void Update()
@@ -28,6 +54,7 @@ namespace Player
             if (currentTime >= time)
             {
                 GettingVector();
+                EnemySpawn?.Invoke(scale);
                 currentTime = 0;
             }
         }

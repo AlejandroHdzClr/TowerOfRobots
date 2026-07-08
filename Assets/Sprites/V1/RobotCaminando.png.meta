@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 339c5fc4cf6e5f04f95f88d6e89587ae
+guid: ccc8f04b971e9834184f45298e48149e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -499651538109962429
-    second: Escopeta_0
+      213: -3352765884513606870
+    second: RobotCaminando_0
+  - first:
+      213: 4111034469812594042
+    second: RobotCaminando_1
+  - first:
+      213: 3082139211467175588
+    second: RobotCaminando_2
+  - first:
+      213: -7383447075995524883
+    second: RobotCaminando_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +55,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.17563838, y: 0.3326432}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escopeta_0
+      name: RobotCaminando_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 6
-        width: 30
-        height: 15
+        x: 21
+        y: 18
+        width: 17
+        height: 30
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3476a77c291e019f0800000000000000
-      internalID: -499651538109962429
+      spriteID: a23a48611359871d0800000000000000
+      internalID: -3352765884513606870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RobotCaminando_1
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 18
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a75e090b1145d0930800000000000000
+      internalID: 4111034469812594042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RobotCaminando_2
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 18
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a6bdcf6845f5ca20800000000000000
+      internalID: 3082139211467175588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RobotCaminando_3
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 18
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de0e369e00ab88990800000000000000
+      internalID: -7383447075995524883
       vertices: []
       indices: 
       edges: []
@@ -125,8 +200,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Escopeta_0: -499651538109962429
+      RobotCaminando_0: -3352765884513606870
+      RobotCaminando_1: 4111034469812594042
+      RobotCaminando_2: 3082139211467175588
+      RobotCaminando_3: -7383447075995524883
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

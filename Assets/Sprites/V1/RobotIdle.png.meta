@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 339c5fc4cf6e5f04f95f88d6e89587ae
+guid: feccd482c34596c46a936b36aade39d1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -499651538109962429
-    second: Escopeta_0
+      213: -4108333124764306383
+    second: RobotIdle_0
+  - first:
+      213: 5618838666857993717
+    second: RobotIdle_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +49,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.17563838, y: 0.3326432}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -100,23 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escopeta_0
+      name: RobotIdle_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 6
-        width: 30
-        height: 15
+        x: 21
+        y: 18
+        width: 17
+        height: 30
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3476a77c291e019f0800000000000000
-      internalID: -499651538109962429
+      spriteID: 134f3773ac44cf6c0800000000000000
+      internalID: -4108333124764306383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RobotIdle_1
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 18
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f5dc446fff1afd40800000000000000
+      internalID: 5618838666857993717
       vertices: []
       indices: 
       edges: []
@@ -125,8 +150,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Escopeta_0: -499651538109962429
+      RobotIdle_0: -4108333124764306383
+      RobotIdle_1: 5618838666857993717
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

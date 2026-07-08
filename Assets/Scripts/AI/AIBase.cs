@@ -1,49 +1,82 @@
 using System;
 using Interfaces;
+using Managers;
+using Player;
 using UnityEngine;
 
 public class AIBase : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float enemyHealth;
-    [SerializeField] public Transform enemyPosition;
+    [Header("Stats enemigo")]
+    [SerializeField] private float enemyMaxHealth;
+    [SerializeField] private float enemyDamage;
     [SerializeField] private float aiSpeed;
-    [SerializeField] private GameObject expOrb;
+
+    [Header("PosicionDelJugador")]
+    [SerializeField] public Transform enemyPosition;
+    [SerializeField] public PlayerEnemySpawnSystem enemySpawnSystem;
     [SerializeField] private float radius;
-    [SerializeField] private LayerMask targetLayerMask; // layer de los propios enemigos
-    [SerializeField] private float separationWeight = 1f; // fuerza de la separación
+    
+    [Header("Experiencia")]
+    [SerializeField] private GameObject expOrb;
+    
+    [Header("Separacion")]
+    [SerializeField] private LayerMask targetLayerMask;
+    [SerializeField] private float separationWeight = 1f;
 
     private float currentHealth;
     private bool imDead=false;
+    private bool buffAplied=false;
     private Collider2D[] colliders;
     private Collider2D ownCollider;
     private Vector3 direction;
 
     void Awake()
     {
-        currentHealth = enemyHealth;
+        currentHealth = enemyMaxHealth;
         ownCollider = GetComponent<Collider2D>();
+    }
+
+    private void Start()
+    {
+        buffAplied = false;
+        enemySpawnSystem.EnemySpawn += ChangeMaxHealth;
+    } 
+    private void OnDisable()
+    {
+        if (enemySpawnSystem != null)
+        {
+            enemySpawnSystem.EnemySpawn -= ChangeMaxHealth;
+        }
+    }
+
+    private void ChangeMaxHealth(float obj)
+    {
+        if (!buffAplied)
+        {
+            enemyMaxHealth *= 1f + (obj * 0.1f);
+            currentHealth = enemyMaxHealth;
+            enemyDamage *= 1f + (obj * 0.1f);
+            buffAplied=true;
+        }
     }
 
     private void FixedUpdate()
     {
-        // Dirección base: siempre hacia el objetivo
         Vector3 toTarget = (enemyPosition.position - transform.position).normalized;
 
-        // Dirección de separación respecto a otros enemigos cercanos
         Vector3 separation = Vector3.zero;
         colliders = Physics2D.OverlapCircleAll(transform.position, radius, targetLayerMask);
 
         int count = 0;
         foreach (Collider2D col in colliders)
         {
-            if (col == ownCollider) continue; // ignorarse a sí mismo
+            if (col == ownCollider) continue;
 
             Vector3 away = transform.position - col.transform.position;
             float dist = away.magnitude;
 
             if (dist > 0.0001f)
             {
-                // cuanto más cerca está otro enemigo, más fuerte empuja
                 separation += away.normalized / dist;
                 count++;
             }
@@ -55,6 +88,14 @@ public class AIBase : MonoBehaviour, IDamageable
         }
 
         direction = toTarget + separation.normalized * separationWeight;
+        if (direction.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
 
         transform.Translate(direction.normalized * (aiSpeed * Time.deltaTime));
     }
@@ -75,6 +116,17 @@ public class AIBase : MonoBehaviour, IDamageable
         else
         {
             Debug.Log("He sido atacado \n Mi vida restante es: " + currentHealth);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.TryGetComponent(out IDamageable idamageable))
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                idamageable.TakeDamage(enemyDamage);
+            }
         }
     }
 

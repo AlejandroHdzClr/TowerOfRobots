@@ -23,5 +23,6 @@ public class WeaponData : ScriptableObject
     [field: SerializeField] public int NumberOfBullets { get; set; }
     [field: SerializeField]public float Damage { get; set; }
     [field: SerializeField]public float Distance { get; set; }
+    [field: SerializeField]public Sprite Image { get; set; }
     [field: SerializeField]public List<WeaponUpgrade> EffectsList { get; set; }
 }

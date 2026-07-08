@@ -19,4 +19,5 @@ MonoBehaviour:
   <NumberOfBullets>k__BackingField: 4
   <Damage>k__BackingField: 2
   <Distance>k__BackingField: 10
+  <Image>k__BackingField: {fileID: 21300000, guid: 339c5fc4cf6e5f04f95f88d6e89587ae, type: 3}
   <EffectsList>k__BackingField: []

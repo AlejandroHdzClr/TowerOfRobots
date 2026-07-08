@@ -39,6 +39,7 @@ namespace Managers
         private void PlayerExpOnPlayerLevelingUp(int obj)
         {
             OpenLevelCanvas?.Invoke();
+            Time.timeScale = 0f;
             playerExp.GetInputSystem().Gameplay.Disable();
             playerExp.GetInputSystem().UI.Enable();
         }
@@ -53,6 +54,7 @@ namespace Managers
         private void UpgradeCardOnChoosingThisUpgrade(WeaponUpgrade obj)
         {
             GettingThisUpgrade?.Invoke(obj);
+            Time.timeScale = 1f;
             CloseLevelCanvas?.Invoke();
         }
     }

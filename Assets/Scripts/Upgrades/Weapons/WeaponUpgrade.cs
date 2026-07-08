@@ -31,7 +31,8 @@ namespace Upgrades.Weapons
                     break;
             }
 
-            return $"{PerkToUpgrade} {operation} {Amount}";
+            return $"{PerkToUpgrade}\n " +
+                   $"{operation} {Amount}";
         }
     }
 }

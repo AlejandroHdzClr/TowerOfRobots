@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 339c5fc4cf6e5f04f95f88d6e89587ae
+guid: 7547ce79376d257418b05d1c4e28b996
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -499651538109962429
-    second: Escopeta_0
+      213: -954536665845934661
+    second: ZombieWalking_0
+  - first:
+      213: 1654055482648405260
+    second: ZombieWalking_1
+  - first:
+      213: 608116802678493979
+    second: ZombieWalking_2
+  - first:
+      213: 650595268191596893
+    second: ZombieWalking_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +55,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.17563838, y: 0.3326432}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Escopeta_0
+      name: ZombieWalking_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 6
-        width: 30
-        height: 15
+        x: 9
+        y: 0
+        width: 14
+        height: 24
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3476a77c291e019f0800000000000000
-      internalID: -499651538109962429
+      spriteID: bb5da23b5fdc0c2f0800000000000000
+      internalID: -954536665845934661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ZombieWalking_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c05ab0aa2b264f610800000000000000
+      internalID: 1654055482648405260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ZombieWalking_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 0
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1319959207707800800000000000000
+      internalID: 608116802678493979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ZombieWalking_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 1
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d513c1d03f0670900800000000000000
+      internalID: 650595268191596893
       vertices: []
       indices: 
       edges: []
@@ -125,8 +200,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Escopeta_0: -499651538109962429
+      ZombieWalking_0: -954536665845934661
+      ZombieWalking_1: 1654055482648405260
+      ZombieWalking_2: 608116802678493979
+      ZombieWalking_3: 650595268191596893
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

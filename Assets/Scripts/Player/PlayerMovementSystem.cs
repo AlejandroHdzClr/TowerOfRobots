@@ -6,12 +6,15 @@ namespace Player
 {
     public class PlayerMovementSystem : PlayerSystem
     {
+        private static readonly int IsWalking = Animator.StringToHash("isWalking");
         [SerializeField] private float speed;
         private Vector2 movementVector;
+        private Animator anim;
 
         protected override void Awake()
         {
             base.Awake();
+            anim = GetComponent<Animator>();
         }
 
         private void OnEnable()
@@ -45,6 +48,7 @@ namespace Player
         private void Update()
         {
             main.transform.Translate(movementVector*(speed*Time.deltaTime));
+            anim.SetBool(IsWalking, movementVector!=Vector2.zero);
         }
     }
 }

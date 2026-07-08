@@ -6,7 +6,7 @@ public class PlayerMain : MonoBehaviour
     [field: SerializeField] public float MaxExperience { get; set; }
     public Rigidbody2D Rb { get; set; }
     public MyInputActions InputActions;
-    public float CurrentEnergy { get; private set; }
+    public float CurrentEnergy { get; set; }
     public float CurrentExperience { get; set; }
     public int currentLevel=1;
     

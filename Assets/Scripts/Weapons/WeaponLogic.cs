@@ -35,7 +35,7 @@ namespace Weapons
         private PlayerWeaponSystem _playerWeaponSystem;
         private Vector3 direction;
         
-        private WeaponData weaponInstance;
+        public WeaponData weaponInstance { get; private set; }
 
         private float minAngle;
         private float maxAngle;
