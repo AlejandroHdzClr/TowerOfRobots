@@ -46,7 +46,10 @@ namespace Weapons
         private bool hasShooted;
         private bool isShooting = false;
         
-        private int currentAmmo;
+        public int currentAmmo;
+
+        public event Action IsReloading, StopReloading;
+        private bool hasSended;
 
         private void Awake()
         {
@@ -111,11 +114,16 @@ namespace Weapons
 
             if (currentAmmo <= 0)
             {
+                if (!hasSended)
+                {
+                    IsReloading?.Invoke();
+                }
                 timeReloading += Time.deltaTime;
                 if (timeReloading >= weaponInstance.TimeReloading)
                 {
                     currentAmmo = Mathf.RoundToInt(weaponInstance.Ammo);
                     timeReloading = 0;
+                    StopReloading?.Invoke();
                 }
             }
         }
