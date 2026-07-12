@@ -9,10 +9,17 @@ namespace Player
         [SerializeField] private float damageTime;
         private float currentTime;
         private bool wasDamaged;
+        public event Action<float> HealthHasChanged; 
         protected override void Awake()
         {
             base.Awake();
             main.CurrentEnergy = main.MaxEnergy;
+            HealthHasChanged?.Invoke(HealthChanged());
+        }
+
+        private float HealthChanged()
+        {
+            return main.CurrentEnergy / main.MaxEnergy;
         }
 
         public void TakeDamage(float damage)
@@ -29,9 +36,9 @@ namespace Player
                 {
                     Debug.Log($"Player hitteado, le queda {main.CurrentEnergy} de energia");
                 }
-
                 wasDamaged = true;
                 currentTime = 0f;
+                HealthHasChanged?.Invoke(HealthChanged());
             }
         }
 

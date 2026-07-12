@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3864188373076079423}
   - component: {fileID: 3045213466643639460}
   - component: {fileID: 3982942268629102648}
+  - component: {fileID: 3809686401537252959}
   - component: {fileID: 3950785206403427012}
   - component: {fileID: 1067170806195764384}
   - component: {fileID: 2856510434065370720}
@@ -192,6 +193,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerMovementSystem
   speed: 10
+--- !u!114 &3809686401537252959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050575879561496664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 284c4891ca584d1b9d69253edc8c8340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHealthSystem
+  damageTime: 0.5
 --- !u!114 &3950785206403427012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4297fc928e74ae3aea7497971c18385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerWeaponSystem
-  weapon: {fileID: 8534395489788134485}
+  weapon: {fileID: 5707519433291784518}
+  rotationSpeed: 750
 --- !u!114 &1067170806195764384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +250,7 @@ MonoBehaviour:
   time: 5
   prefab: {fileID: 1668942002051741246, guid: 8f31af109f2e28d439c66253fcfee5a9, type: 3}
   timeManager: {fileID: 0}
+  scale: 0
 --- !u!95 &235062898875511426
 Animator:
   serializedVersion: 7
@@ -330,7 +346,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4705641859617753666, guid: 99c40c49b92352148afe9252a9dcb109, type: 3}
   m_PrefabInstance: {fileID: 1042832875684588292}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534395489788134485}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9811d653402c4b3595733dce39c18ae1, type: 3}
@@ -359,8 +375,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponImage
   logic: {fileID: 5707519433291784518}
---- !u!1 &8534395489788134485 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8649340667283369809, guid: 99c40c49b92352148afe9252a9dcb109, type: 3}
-  m_PrefabInstance: {fileID: 1042832875684588292}
-  m_PrefabAsset: {fileID: 0}
