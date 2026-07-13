@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public static class CameraEventsManager
+public static class CameraEvents
 {
     public static event Action<float> OnShakeRequested;
 

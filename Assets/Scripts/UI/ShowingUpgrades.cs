@@ -11,7 +11,6 @@ namespace UI
     {
         [SerializeField] private LevelUpCanvasSystem levelUp;
         [SerializeField] private WeaponLogic logic;
-        [SerializeField] private UIManager uIManager;
         [SerializeField] private List<GameObject> upgradeCards;
 
         private void Awake()
@@ -21,7 +20,7 @@ namespace UI
 
         private void OnEnable()
         {
-            uIManager.OpenLevelCanvas += UIManagerOnOpenLevelCanvas;
+            UIEvents.OnOpenLevelCanvas += UIManagerOnOpenLevelCanvas;
         }
 
         private void UIManagerOnOpenLevelCanvas()

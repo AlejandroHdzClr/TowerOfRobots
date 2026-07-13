@@ -9,7 +9,6 @@ namespace UI
     {
         [SerializeField] private TMP_Text text;
         [SerializeField] private UpgradePool weaponUpgrade;
-        public event Action<WeaponUpgrade> ChoosingThisUpgrade;
         private WeaponUpgrade thisUpgrade;
         private void OnEnable()
         {
@@ -19,7 +18,7 @@ namespace UI
 
         public void GettingThisUpgrade()
         {
-            ChoosingThisUpgrade?.Invoke(thisUpgrade);
+            UIEvents.ChoosingThisUpgrade(thisUpgrade);
         }
     }
 }

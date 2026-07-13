@@ -11,12 +11,12 @@ namespace CameraThings
         
         private void OnEnable()
         {
-            CameraEventsManager.OnShakeRequested += HandleShake;
+            CameraEvents.OnShakeRequested += HandleShake;
         }
         
         private void OnDisable()
         {
-            CameraEventsManager.OnShakeRequested -= HandleShake;
+            CameraEvents.OnShakeRequested -= HandleShake;
         }
 
         private void HandleShake(float obj)

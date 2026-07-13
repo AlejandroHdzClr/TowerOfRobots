@@ -7,8 +7,6 @@ namespace Player
     public class PlayerExperienceSystem : PlayerSystem
     {
         [SerializeField, Range(0f,1f)] private float expIncremental;
-
-        public event Action<int> PlayerLevelingUp;
         
         protected override void Awake()
         {
@@ -36,7 +34,7 @@ namespace Player
                 main.MaxExperience += expIncrement;
                 Debug.Log($"Subí de nivel, ahora necesito {main.MaxExperience}");
                 main.currentLevel++;
-                PlayerLevelingUp?.Invoke(main.currentLevel);
+                PlayerEvents.PlayerHasLeveledUp(main.currentLevel);
             }
             else
             {

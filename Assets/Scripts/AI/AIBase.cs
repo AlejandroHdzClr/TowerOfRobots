@@ -13,7 +13,6 @@ public class AIBase : MonoBehaviour, IDamageable
 
     [Header("PosicionDelJugador")]
     [SerializeField] public Transform enemyPosition;
-    [SerializeField] public PlayerEnemySpawnSystem enemySpawnSystem;
     [SerializeField] private float radius;
     
     [Header("Experiencia")]
@@ -39,14 +38,11 @@ public class AIBase : MonoBehaviour, IDamageable
     private void Start()
     {
         buffAplied = false;
-        enemySpawnSystem.EnemySpawn += ChangeMaxHealth;
+        AIEvents.OnEnemySpawn += ChangeMaxHealth;
     } 
     private void OnDisable()
     {
-        if (enemySpawnSystem != null)
-        {
-            enemySpawnSystem.EnemySpawn -= ChangeMaxHealth;
-        }
+        AIEvents.OnEnemySpawn -= ChangeMaxHealth;
     }
 
     private void ChangeMaxHealth(float obj)

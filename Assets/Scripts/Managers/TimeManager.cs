@@ -10,8 +10,6 @@ namespace Managers
         private float maxTime;
         private float scale;
 
-        public event Action<float> OnCapEntered;
-
         private void Update()
         {
             currentTime += Time.deltaTime;
@@ -20,7 +18,7 @@ namespace Managers
             if (currentTime >= capTime)
             {
                 scale = 0.02f + (maxTime * 0.0005f);
-                OnCapEntered?.Invoke(scale);
+                TimeEvents.EnteringCap(scale);
                 currentTime = 0;
             }
         }

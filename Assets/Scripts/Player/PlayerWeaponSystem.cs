@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers.EventManagers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapons;
@@ -10,9 +11,6 @@ namespace Player
         [SerializeField] private WeaponLogic weapon;
         [SerializeField] private float rotationSpeed;
 
-        public event Action<bool> OnShoot;
-        public event Action<Vector3> MouseHasChanged;
-
         private bool isReloading = false;
         private void OnEnable()
         {
@@ -20,8 +18,8 @@ namespace Player
             main.InputActions.Gameplay.MousePosition.performed += GetMousePosition;
             main.InputActions.Gameplay.Shoot.started += ShootOnStarted;
             main.InputActions.Gameplay.Shoot.canceled += OnShootEnded;
-            weapon.StopReloading += StopReloading;
-            weapon.IsReloading += IsReloading;
+            WeaponEvents.OnReloading += IsReloading;
+            WeaponEvents.OnStopReloading += StopReloading;
         }
         
         private void OnDisable()
@@ -30,8 +28,8 @@ namespace Player
             main.InputActions.Gameplay.MousePosition.performed -= GetMousePosition;
             main.InputActions.Gameplay.Shoot.started -= ShootOnStarted;
             main.InputActions.Gameplay.Shoot.canceled -= OnShootEnded;
-            weapon.StopReloading -= StopReloading;
-            weapon.IsReloading -= IsReloading;
+            WeaponEvents.OnReloading -= IsReloading;
+            WeaponEvents.OnStopReloading -= StopReloading;
         }
 
         private void IsReloading()
@@ -46,10 +44,10 @@ namespace Player
 
         private void ShootOnStarted(InputAction.CallbackContext obj)
         {
-            OnShoot?.Invoke(true);
+            WeaponEvents.Shooting(true);
         }private void OnShootEnded(InputAction.CallbackContext obj)
         {
-            OnShoot?.Invoke(false);
+            WeaponEvents.Shooting(false);
         }
 
         private void GetMousePosition(InputAction.CallbackContext obj)
@@ -75,8 +73,7 @@ namespace Player
             {
                 weapon.gameObject.transform.eulerAngles = new Vector3(0, 0, angle);
             }
-            MouseHasChanged?.Invoke(direction.normalized);
-            
+            WeaponEvents.ChangingMouse(direction.normalized);
         }
 
         private void Update()

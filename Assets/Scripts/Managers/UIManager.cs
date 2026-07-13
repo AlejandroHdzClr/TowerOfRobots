@@ -13,35 +13,35 @@ namespace Managers
         [SerializeField] private PlayerExperienceSystem playerExp;
         [SerializeField] private List<UpgradeCard> list;
 
-        public event Action OpenLevelCanvas, CloseLevelCanvas;
-        public event Action<WeaponUpgrade> GettingThisUpgrade;
+        private bool upgradeSended=false;
 
         private void OnEnable()
         {
             levelUpCanvasSystem.CloseCanvas += LevelUpCanvasSystemOnCloseCanvas;
-            playerExp.PlayerLevelingUp += PlayerExpOnPlayerLevelingUp;
+            PlayerEvents.OnPlayerLevelingUp += PlayerExpOnPlayerLevelingUp;
             foreach (UpgradeCard upgradeCard in list)
             {
-                upgradeCard.ChoosingThisUpgrade += UpgradeCardOnChoosingThisUpgrade;
+                UIEvents.OnChoosingThisUpgrade += UpgradeCardOnChoosingThisUpgrade;
             }
         }
 
         private void OnDisable()
         {
             levelUpCanvasSystem.CloseCanvas -= LevelUpCanvasSystemOnCloseCanvas;
-            playerExp.PlayerLevelingUp -= PlayerExpOnPlayerLevelingUp;
+            PlayerEvents.OnPlayerLevelingUp -= PlayerExpOnPlayerLevelingUp;
             foreach (UpgradeCard upgradeCard in list)
             {
-                upgradeCard.ChoosingThisUpgrade -= UpgradeCardOnChoosingThisUpgrade;
+                UIEvents.OnChoosingThisUpgrade -= UpgradeCardOnChoosingThisUpgrade;
             }
         }
 
         private void PlayerExpOnPlayerLevelingUp(int obj)
         {
-            OpenLevelCanvas?.Invoke();
+            UIEvents.OpeningLevelCanvas();
             Time.timeScale = 0f;
             playerExp.GetInputSystem().Gameplay.Disable();
             playerExp.GetInputSystem().UI.Enable();
+            upgradeSended = false;
         }
         
         private void LevelUpCanvasSystemOnCloseCanvas(GameObject obj)
@@ -53,9 +53,13 @@ namespace Managers
         
         private void UpgradeCardOnChoosingThisUpgrade(WeaponUpgrade obj)
         {
-            GettingThisUpgrade?.Invoke(obj);
-            Time.timeScale = 1f;
-            CloseLevelCanvas?.Invoke();
+            if (!upgradeSended)
+            {
+                UIEvents.GettingThisUpgrade(obj);
+                Time.timeScale = 1f;
+                UIEvents.ClosingLevelCanvas();
+                upgradeSended = true;
+            }
         }
     }
 }

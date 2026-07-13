@@ -1223,7 +1223,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpCanvasSystem
   canvas: {fileID: 1375702126}
-  UIManager: {fileID: 76527257}
 --- !u!1 &1144232318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,17 +1457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05063c78d6448dfb51d356ce2ce46cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerExperienceSystem
---- !u!114 &1375886639 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3809686401537252959, guid: 50a822538160f3747876c0829ed0f218, type: 3}
-  m_PrefabInstance: {fileID: 865977310820678416}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284c4891ca584d1b9d69253edc8c8340, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHealthSystem
 --- !u!4 &1408141611 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7564165438002622160, guid: 880f3e44ba9723148b56d4c84c26b039, type: 3}
@@ -1682,7 +1670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3975a141714dc59b5a4c03a124936f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Managers.UIStatsSystem
-  playerHealthSystem: {fileID: 1375886639}
   healthBarImage: {fileID: 1828823142}
 --- !u!1 &1812029339
 GameObject:

@@ -1,6 +1,7 @@
 ﻿using System;
 using Interfaces;
 using Managers;
+using Managers.EventManagers;
 using Player;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -23,7 +24,6 @@ namespace Weapons
         
         [SerializeField] private WeaponData weaponData;
         [SerializeField] private BulletPool bullet;
-        [SerializeField] private UIManager uIManager;
         
         [Header("Camera Shake")]
         [SerializeField] private float forcePerBullet = 0.1f;
@@ -47,8 +47,7 @@ namespace Weapons
         private bool isShooting = false;
         
         public int currentAmmo;
-
-        public event Action IsReloading, StopReloading;
+        
         private bool hasSended;
 
         private void Awake()
@@ -63,16 +62,16 @@ namespace Weapons
         
         private void OnEnable()
         {
-            _playerWeaponSystem.OnShoot += PlayerMainOnOnShoot;
-            _playerWeaponSystem.MouseHasChanged += GetDirection;
-            uIManager.GettingThisUpgrade += UIManagerOnGettingThisUpgrade;
+            WeaponEvents.OnShoot += PlayerMainOnOnShoot;
+            WeaponEvents.OnMouseChanged += GetDirection;
+            UIEvents.OnGettingThisUpgrade += UIManagerOnGettingThisUpgrade;
         }
 
         private void OnDisable()
         {
-            _playerWeaponSystem.OnShoot -= PlayerMainOnOnShoot;
-            _playerWeaponSystem.MouseHasChanged -= GetDirection;
-            uIManager.GettingThisUpgrade -= UIManagerOnGettingThisUpgrade;
+            WeaponEvents.OnShoot -= PlayerMainOnOnShoot;
+            WeaponEvents.OnMouseChanged -= GetDirection;
+            UIEvents.OnGettingThisUpgrade -= UIManagerOnGettingThisUpgrade;
         }
         
         private void PlayerMainOnOnShoot(bool obj)
@@ -98,7 +97,7 @@ namespace Weapons
                         0f,
                         maxShakeForce
                     );
-                    CameraEventsManager.RequestShake(totalForce);
+                    CameraEvents.RequestShake(totalForce);
                 } 
             }
             
@@ -116,14 +115,14 @@ namespace Weapons
             {
                 if (!hasSended)
                 {
-                    IsReloading?.Invoke();
+                    WeaponEvents.Reloading();
                 }
                 timeReloading += Time.deltaTime;
                 if (timeReloading >= weaponInstance.TimeReloading)
                 {
                     currentAmmo = Mathf.RoundToInt(weaponInstance.Ammo);
                     timeReloading = 0;
-                    StopReloading?.Invoke();
+                    WeaponEvents.StoppingReload();
                 }
             }
         }

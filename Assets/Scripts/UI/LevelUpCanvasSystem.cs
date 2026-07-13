@@ -6,18 +6,17 @@ using UnityEngine;
 public class LevelUpCanvasSystem : MonoBehaviour
 {
     [SerializeField] private GameObject canvas;
-    [SerializeField] private UIManager UIManager;
     public event Action<GameObject> CloseCanvas;
 
     private void OnEnable()
     {
-        UIManager.OpenLevelCanvas+= OpenCanvas;
-        UIManager.CloseLevelCanvas+= CloseMenu;
+        UIEvents.OnOpenLevelCanvas+= OpenCanvas;
+        UIEvents.OnCloseLevelCanvas+= CloseMenu;
     }
     private void OnDisable()
     {
-        UIManager.OpenLevelCanvas-= OpenCanvas;
-        UIManager.CloseLevelCanvas-= CloseMenu;
+        UIEvents.OnOpenLevelCanvas-= OpenCanvas;
+        UIEvents.OnCloseLevelCanvas-= CloseMenu;
     }
 
     private void OpenCanvas()
