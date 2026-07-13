@@ -40,6 +40,7 @@ namespace Player
             {
                 Debug.Log($"De exp: {main.MaxExperience} que tengo que obtener, acabo de conseguir tener {main.CurrentExperience} en total");
             }
+            PlayerEvents.ChangingExpBar(main.CurrentExperience/main.MaxExperience);
         }
     }
 }

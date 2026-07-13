@@ -8,12 +8,19 @@ namespace Managers
     public class UIStatsSystem : MonoBehaviour
     {
         [SerializeField] private Image healthBarImage;
+        [SerializeField] private Image expBarImage;
 
         private void OnEnable()
         {
             PlayerEvents.OnHealthChanged += PlayerHealthSystemOnHealthHasChanged;
+            PlayerEvents.OnExpChanged += PlayerEventsOnOnExpChanged;
         }
-        
+
+        private void PlayerEventsOnOnExpChanged(float obj)
+        {
+            expBarImage.fillAmount = obj;
+        }
+
         private void OnDisable()
         {
             PlayerEvents.OnHealthChanged -= PlayerHealthSystemOnHealthHasChanged;
