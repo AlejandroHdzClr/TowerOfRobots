@@ -22,6 +22,7 @@ namespace Player
             main.InputActions.Gameplay.Enable();
             main.InputActions.Gameplay.Move.performed += OnMove;
             main.InputActions.Gameplay.Move.canceled += OnMove;
+            main.InputActions.Gameplay.Interact.started += OnInteract;
         }
         
         private void OnDisable()
@@ -29,8 +30,14 @@ namespace Player
             main.InputActions.Gameplay.Disable();
             main.InputActions.Gameplay.Move.performed -= OnMove;
             main.InputActions.Gameplay.Move.canceled -= OnMove;
+            main.InputActions.Gameplay.Interact.started -= OnInteract;
         }
 
+        private void OnInteract(InputAction.CallbackContext obj)
+        {
+            PlayerEvents.Interacting();
+        }
+        
         private void OnMove(InputAction.CallbackContext obj)
         {
             movementVector = obj.ReadValue<Vector2>();

@@ -39,15 +39,13 @@ namespace Managers
         {
             UIEvents.OpeningLevelCanvas();
             Time.timeScale = 0f;
-            playerExp.GetInputSystem().Gameplay.Disable();
-            playerExp.GetInputSystem().UI.Enable();
+            PlayerEnable();
             upgradeSended = false;
         }
         
         private void LevelUpCanvasSystemOnCloseCanvas(GameObject obj)
         {
-            playerExp.GetInputSystem().UI.Disable();
-            playerExp.GetInputSystem().Gameplay.Enable();
+            PlayerDisable();
             obj.SetActive(false);
         }
         
@@ -60,6 +58,18 @@ namespace Managers
                 UIEvents.ClosingLevelCanvas();
                 upgradeSended = true;
             }
+        }
+
+        private void PlayerDisable()
+        {
+            playerExp.GetInputSystem().UI.Disable();
+            playerExp.GetInputSystem().Gameplay.Enable();
+        }
+        
+        private void PlayerEnable()
+        {
+            playerExp.GetInputSystem().UI.Enable();
+            playerExp.GetInputSystem().Gameplay.Disable();
         }
     }
 }

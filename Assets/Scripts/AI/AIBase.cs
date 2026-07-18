@@ -4,12 +4,20 @@ using Managers;
 using Player;
 using UnityEngine;
 
+public enum AIType
+{
+    Melee,
+    Range
+}
+
 public class AIBase : MonoBehaviour, IDamageable
 {
     [Header("Stats enemigo")]
     [SerializeField] private float enemyMaxHealth;
     [SerializeField] private float enemyDamage;
     [SerializeField] private float aiSpeed;
+    [SerializeField] private float stoppingDistance;
+    [SerializeField] private AIType enemyType;
 
     [Header("PosicionDelJugador")]
     [SerializeField] public Transform enemyPosition;
@@ -58,43 +66,35 @@ public class AIBase : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
+        // --- VECTOR HACIA EL JUGADOR ---
         Vector3 toTarget = (enemyPosition.position - transform.position).normalized;
 
+        // --- SEPARACIÓN ULTRA-BARATA (solo 1 enemigo cercano) ---
+        Collider2D nearest = Physics2D.OverlapCircle(transform.position, radius, targetLayerMask);
+
         Vector3 separation = Vector3.zero;
-        colliders = Physics2D.OverlapCircleAll(transform.position, radius, targetLayerMask);
 
-        int count = 0;
-        foreach (Collider2D col in colliders)
+        if (nearest != null && nearest != ownCollider)
         {
-            if (col == ownCollider) continue;
-
-            Vector3 away = transform.position - col.transform.position;
-            float dist = away.magnitude;
-
-            if (dist > 0.0001f)
-            {
-                separation += away.normalized / dist;
-                count++;
-            }
+            Vector3 away = transform.position - nearest.transform.position;
+            separation = away.normalized * separationWeight;
         }
 
-        if (count > 0)
-        {
-            separation /= count;
-        }
+        // --- DIRECCIÓN FINAL ---
+        direction = toTarget + separation;
 
-        direction = toTarget + separation.normalized * separationWeight;
-        if (direction.x < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
+        // --- FLIP ---
+        transform.localScale = new Vector3(direction.x < 0 ? -1 : 1, 1, 1);
 
-        transform.Translate(direction.normalized * (aiSpeed * Time.deltaTime));
+        // --- DISTANCIA REAL AL JUGADOR ---
+        float distToTarget = Vector3.Distance(transform.position, enemyPosition.position);
+
+        if (distToTarget > stoppingDistance)
+        {
+            transform.Translate(direction.normalized * (aiSpeed * Time.deltaTime));
+        }
     }
+
 
     public void TakeDamage(float damage)
     {

@@ -109,8 +109,9 @@ MonoBehaviour:
   enemyMaxHealth: 10
   enemyDamage: 5
   aiSpeed: 2.5
+  stoppingDistance: 0
+  enemyType: 0
   enemyPosition: {fileID: 5628795816579733008, guid: 50a822538160f3747876c0829ed0f218, type: 3}
-  enemySpawnSystem: {fileID: 0}
   radius: 1
   expOrb: {fileID: 2032149441600424400, guid: 5fce2dfff7f73134ba94dfdc437a2927, type: 3}
   targetLayerMask:
