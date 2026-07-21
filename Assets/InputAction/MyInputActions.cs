@@ -226,12 +226,12 @@ public partial class @MyInputActions: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Press"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""42121306-2bf5-487b-ab7e-04cf5adcd633"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Scroll"",

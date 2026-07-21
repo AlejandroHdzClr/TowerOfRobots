@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using Managers.EventManagers;
 using UnityEngine;
 
 namespace Player
@@ -16,6 +17,25 @@ namespace Player
             PlayerEvents.HealthHasBeenChanged(HealthChanged());
         }
 
+        private void OnEnable()
+        {
+            TowerEvents.OnHealPulsed += TowerEventsOnOnHealPulsed;
+        }
+        private void OnDisable()
+        {
+            TowerEvents.OnHealPulsed -= TowerEventsOnOnHealPulsed;
+        }
+
+        private void TowerEventsOnOnHealPulsed(float obj)
+        {
+            main.CurrentEnergy += obj;
+            if (main.CurrentEnergy > main.MaxEnergy)
+            {
+                main.CurrentEnergy = main.MaxEnergy;
+            }
+            PlayerEvents.HealthHasBeenChanged(HealthChanged());
+        }
+
         private float HealthChanged()
         {
             return main.CurrentEnergy / main.MaxEnergy;
@@ -28,6 +48,7 @@ namespace Player
                 main.CurrentEnergy -= damage;
                 if (main.CurrentEnergy <= 0)
                 {
+                    main.CurrentEnergy = 0f;
                     Debug.Log("El player ha muerto");
                     Time.timeScale = 0f;
                 }
