@@ -6,12 +6,12 @@ using Upgrades.Weapons;
 
 public class TowerMain : MonoBehaviour
 {
-    [Field:SerializeField] public float Range { get; private set; }
-    [Field:SerializeField] public float Damage { get; private set; }
-    [Field:SerializeField] public float HealthPerPulse { get; private set; }
-    [Field:SerializeField] public float ShieldPerPulse { get; private set; }
-    [Field:SerializeField] public List<PlayerUpgrade> PlayerUpgrades { get; private set; }
-    [Field:SerializeField] public List<WeaponUpgrade> WeaponUpgrades { get; private set; }
+    [field:SerializeField] public float Range { get; private set; }
+    [field:SerializeField] public float Damage { get; private set; }
+    [field:SerializeField] public float HealthPerPulse { get; private set; }
+    [field:SerializeField] public float ShieldPerPulse { get; private set; }
+    [field:SerializeField] public List<PlayerUpgrade> PlayerUpgrades { get; private set; }
+    [field:SerializeField] public List<WeaponUpgrade> WeaponUpgrades { get; private set; }
 
     public bool IsInsideRange;
     
