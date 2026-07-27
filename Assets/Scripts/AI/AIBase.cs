@@ -2,6 +2,7 @@ using System;
 using Interfaces;
 using Managers;
 using Player;
+using Tower.Actions;
 using UnityEngine;
 
 public enum AIType
@@ -22,6 +23,11 @@ public class AIBase : MonoBehaviour, IDamageable
     [Header("PosicionDelJugador")]
     [SerializeField] public Transform enemyPosition;
     [SerializeField] private float radius;
+    
+    [Header("Torre")]
+    [SerializeField] public TowerDamagingSystem towerDamaging;
+    private bool insideTower;
+    private float currentTime;
     
     [Header("Experiencia")]
     [SerializeField] private GameObject expOrb;
@@ -95,6 +101,20 @@ public class AIBase : MonoBehaviour, IDamageable
         }
     }
 
+    private void Update()
+    {
+        if (insideTower)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime >= towerDamaging.time)
+            {
+                TakeDamage(towerDamaging.GetDamage());
+                currentTime = 0f;
+                Debug.Log("He recibido daño por la torre");
+            }
+        }
+    }
+
 
     public void TakeDamage(float damage)
     {
@@ -123,6 +143,24 @@ public class AIBase : MonoBehaviour, IDamageable
             {
                 idamageable.TakeDamage(enemyDamage);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Tower"))
+        {
+            Debug.Log(other.gameObject.name);
+            insideTower = true;
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Tower"))
+        {
+            Debug.Log(other.gameObject.name);
+            insideTower = false;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Managers;
+using Tower.Actions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ namespace Player
         [SerializeField] private float time;
         [SerializeField] private AIBase prefab;
         [SerializeField] private float scale;
+        [SerializeField] private TowerDamagingSystem damageSystem;
         private float currentTime;
 
         private void OnEnable()
@@ -42,6 +44,7 @@ namespace Player
             Vector2 position = (Vector2)transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
             AIBase enemy = Instantiate(prefab, position, Quaternion.identity);
             enemy.enemyPosition = transform;
+            enemy.towerDamaging = damageSystem;
         }
 
         private void Update()

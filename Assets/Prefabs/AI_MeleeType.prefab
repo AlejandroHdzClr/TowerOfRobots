@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1668942002051741246}
   - component: {fileID: 7813469864758057339}
   - component: {fileID: 4485345689388813989}
+  - component: {fileID: -7981635046199350253}
   m_Layer: 0
   m_Name: AI_MeleeType
   m_TagString: AI
@@ -113,6 +114,7 @@ MonoBehaviour:
   enemyType: 0
   enemyPosition: {fileID: 5628795816579733008, guid: 50a822538160f3747876c0829ed0f218, type: 3}
   radius: 1
+  towerDamaging: {fileID: 0}
   expOrb: {fileID: 2032149441600424400, guid: 5fce2dfff7f73134ba94dfdc437a2927, type: 3}
   targetLayerMask:
     serializedVersion: 2
@@ -186,3 +188,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &-7981635046199350253
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645176932764733227}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

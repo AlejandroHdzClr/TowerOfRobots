@@ -17,7 +17,7 @@ namespace Tower.Actions
 
         private void Update()
         {
-            if (main.IsInsideRange)
+            if (main.PlayerInsideRange)
             {
                 currentTime += Time.deltaTime;
                 if (currentTime >= timeBetweenPulse)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Upgrades.Player;
 using Upgrades.Weapons;
 
@@ -13,7 +14,7 @@ public class TowerMain : MonoBehaviour
     [field:SerializeField] public List<PlayerUpgrade> PlayerUpgrades { get; private set; }
     [field:SerializeField] public List<WeaponUpgrade> WeaponUpgrades { get; private set; }
 
-    public bool IsInsideRange;
+    [FormerlySerializedAs("IsInsideRange")] public bool PlayerInsideRange;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,7 +26,7 @@ public class TowerMain : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            IsInsideRange = true;
+            PlayerInsideRange = true;
         }
     }
 
@@ -33,7 +34,7 @@ public class TowerMain : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            IsInsideRange = false;
+            PlayerInsideRange = false;
         }
     }
 
