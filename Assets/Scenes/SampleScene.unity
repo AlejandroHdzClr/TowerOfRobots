@@ -8281,6 +8281,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2856510434065370720, guid: 50a822538160f3747876c0829ed0f218, type: 3}
+      propertyPath: expOrb
+      value: 
+      objectReference: {fileID: 3467257462734431851, guid: 5fce2dfff7f73134ba94dfdc437a2927, type: 3}
+    - target: {fileID: 2856510434065370720, guid: 50a822538160f3747876c0829ed0f218, type: 3}
       propertyPath: timeManager
       value: 
       objectReference: {fileID: 1408141612}

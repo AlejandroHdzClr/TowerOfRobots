@@ -20,6 +20,7 @@ namespace Player
         private float currentTime;
         private Transform lastAiPosition;
         
+        public ObjectPool<AIBase> AiPool { get; private set; }
         public ObjectPool<ExperienceOrb> ExpPool { get; private set; }
 
 
@@ -32,6 +33,31 @@ namespace Player
         private void Awake()
         {
             ExpPool = new ObjectPool<ExperienceOrb>(CreateExpOrb, GetExpOrb, ReleaseExpOrb);
+            AiPool = new ObjectPool<AIBase>(CreateAiEnemy, GetAiEnemy, ReleaseAiEnemy);
+        }
+
+        public void EndOfAiEnemy(AIBase enemy)
+        {
+            AiPool.Release(enemy);
+        }
+        
+        private void ReleaseAiEnemy(AIBase obj)
+        {
+            obj.gameObject.SetActive(false);
+        }
+
+        private void GetAiEnemy(AIBase obj)
+        {
+            obj.gameObject.SetActive(true);
+            obj.Init(this);
+            Debug.Log("Get AiEnemy Init");
+        }
+
+        private AIBase CreateAiEnemy()
+        {
+            AIBase copy = Instantiate(prefab);
+            copy.MyPool = AiPool;
+            return copy;
         }
 
         private void ReleaseExpOrb(ExperienceOrb orb)
@@ -85,7 +111,9 @@ namespace Player
             float distance = Random.Range(minRadius, maxRadius);
 
             Vector2 position = (Vector2)transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
-            AIBase enemy = Instantiate(prefab, position, Quaternion.identity);
+            
+            AIBase enemy = AiPool.Get();
+            enemy.transform.position = position;
             enemy.enemyPosition = transform;
             enemy.towerDamaging = damageSystem;
         }

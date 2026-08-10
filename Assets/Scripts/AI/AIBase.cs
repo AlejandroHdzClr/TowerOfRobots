@@ -45,6 +45,8 @@ public class AIBase : MonoBehaviour, IDamageable
     private Collider2D[] colliders;
     private Collider2D ownCollider;
     private Vector3 direction;
+    public ObjectPool<AIBase> MyPool;
+    private PlayerEnemySpawnSystem owner;
 
     void Awake()
     {
@@ -52,9 +54,30 @@ public class AIBase : MonoBehaviour, IDamageable
         ownCollider = GetComponent<Collider2D>();
     }
 
-    private void Start()
+    public void Init(PlayerEnemySpawnSystem playerEnemySpawnSystem)
     {
+        owner = playerEnemySpawnSystem;
+
+        imDead = false;
+        insideTower = false;
         buffAplied = false;
+
+        currentTime = 0f;
+
+        currentHealth = enemyMaxHealth;
+
+        if (ownCollider != null)
+            ownCollider.enabled = true;
+        
+
+        direction = Vector3.zero;
+
+        Debug.Log("Enemy Init completo");
+    }
+
+    
+    private void OnEnable()
+    {
         AIEvents.OnEnemySpawn += ChangeMaxHealth;
     } 
     private void OnDisable()
@@ -127,10 +150,9 @@ public class AIBase : MonoBehaviour, IDamageable
             if (!imDead)
             {
                 Debug.Log("He muerto");
-                //Instantiate(expOrb, transform.position, transform.rotation);
                 AIEvents.LocationingDeadPosition(transform);
                 imDead = true;
-                Destroy(gameObject);
+                owner.EndOfAiEnemy(this);
             }
         }
         else
