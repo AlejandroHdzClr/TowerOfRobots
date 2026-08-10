@@ -5662,7 +5662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerMain
   <Range>k__BackingField: 0
   <Damage>k__BackingField: 0
-  <HealthPerPulse>k__BackingField: 0
+  <HealthPerPulse>k__BackingField: 2
   <ShieldPerPulse>k__BackingField: 0
   <PlayerUpgrades>k__BackingField: []
   <WeaponUpgrades>k__BackingField: []

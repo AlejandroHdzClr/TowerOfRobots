@@ -1,7 +1,9 @@
 ﻿using System;
+using EnemyDrops;
 using Managers;
 using Tower.Actions;
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 namespace Player
@@ -14,11 +16,52 @@ namespace Player
         [SerializeField] private AIBase prefab;
         [SerializeField] private float scale;
         [SerializeField] private TowerDamagingSystem damageSystem;
+        [SerializeField] private ExperienceOrb expOrb;
         private float currentTime;
+        private Transform lastAiPosition;
+        
+        public ObjectPool<ExperienceOrb> ExpPool { get; private set; }
+
 
         private void OnEnable()
         {
             TimeEvents.OnCapEntered += TimeChange;
+            AIEvents.OnLocationDead += AIEventsOnOnLocationDead;
+        }
+
+        private void Awake()
+        {
+            ExpPool = new ObjectPool<ExperienceOrb>(CreateExpOrb, GetExpOrb, ReleaseExpOrb);
+        }
+
+        private void ReleaseExpOrb(ExperienceOrb orb)
+        {
+            orb.gameObject.SetActive(false);
+        }
+
+        private void GetExpOrb(ExperienceOrb orb)
+        {
+            orb.gameObject.SetActive(true);
+            orb.Init(this);
+            orb.transform.position = lastAiPosition.position;
+        }
+
+        public void EndOfExpOrb(ExperienceOrb orb)
+        {
+            ExpPool.Release(orb);
+        }
+        
+        private ExperienceOrb CreateExpOrb()
+        {
+            ExperienceOrb copy = Instantiate(expOrb, lastAiPosition.position, lastAiPosition.rotation);
+            copy.MyPool = ExpPool;
+            return copy;
+        }
+
+        private void AIEventsOnOnLocationDead(Transform transform)
+        {
+            lastAiPosition = transform;
+            ExpPool.Get();
         }
 
         private void TimeChange(float obj)

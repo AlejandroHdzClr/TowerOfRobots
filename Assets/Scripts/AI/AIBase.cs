@@ -1,9 +1,12 @@
 using System;
+using EnemyDrops;
 using Interfaces;
 using Managers;
 using Player;
 using Tower.Actions;
 using UnityEngine;
+using UnityEngine.Pool;
+using Object = System.Object;
 
 public enum AIType
 {
@@ -124,7 +127,8 @@ public class AIBase : MonoBehaviour, IDamageable
             if (!imDead)
             {
                 Debug.Log("He muerto");
-                Instantiate(expOrb, transform.position, transform.rotation);
+                //Instantiate(expOrb, transform.position, transform.rotation);
+                AIEvents.LocationingDeadPosition(transform);
                 imDead = true;
                 Destroy(gameObject);
             }
