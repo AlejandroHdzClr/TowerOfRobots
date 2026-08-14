@@ -38,7 +38,6 @@ public class AIBase : MonoBehaviour
     [field: SerializeField] public float SeparationWeight { get; private set; }
 
     public bool imDead=false;
-    private bool buffAplied=false;
     public ObjectPool<AIBase> MyPool;
     public PlayerEnemySpawnSystem owner;
 

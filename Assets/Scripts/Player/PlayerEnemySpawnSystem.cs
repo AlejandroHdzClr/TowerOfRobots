@@ -1,5 +1,6 @@
 ﻿using System;
 using EnemyDrops;
+using Interfaces;
 using Managers;
 using Tower.Actions;
 using UnityEngine;
@@ -44,12 +45,20 @@ namespace Player
         private void ReleaseAiEnemy(AIBase obj)
         {
             obj.gameObject.SetActive(false);
+            foreach (IPooleable pooleable in obj.GetComponents<IPooleable>())
+            {
+                pooleable.OnDespawn();
+            }
         }
 
         private void GetAiEnemy(AIBase obj)
         {
             obj.gameObject.SetActive(true);
             obj.Init(this);
+            foreach (IPooleable pooleable in obj.GetComponents<IPooleable>())
+            {
+                pooleable.OnSpawn();
+            }
             Debug.Log("Get AiEnemy Init");
         }
 

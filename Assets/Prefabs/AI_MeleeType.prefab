@@ -10,10 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5454216461924807990}
   - component: {fileID: 9030785174324790610}
-  - component: {fileID: 1668942002051741246}
   - component: {fileID: 7813469864758057339}
   - component: {fileID: 4485345689388813989}
   - component: {fileID: -7981635046199350253}
+  - component: {fileID: 1668942002051741246}
+  - component: {fileID: 2033437247616714005}
+  - component: {fileID: 4004090053774117025}
+  - component: {fileID: 4023958979523313071}
+  - component: {fileID: 2379609238995196034}
   m_Layer: 0
   m_Name: AI_MeleeType
   m_TagString: AI
@@ -95,31 +99,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1668942002051741246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2645176932764733227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2541d120e6e584f8c677e5830310d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AIBase
-  enemyMaxHealth: 10
-  enemyDamage: 5
-  aiSpeed: 2.5
-  stoppingDistance: 0
-  enemyType: 0
-  enemyPosition: {fileID: 5628795816579733008, guid: 50a822538160f3747876c0829ed0f218, type: 3}
-  radius: 1
-  towerDamaging: {fileID: 0}
-  expOrb: {fileID: 2032149441600424400, guid: 5fce2dfff7f73134ba94dfdc437a2927, type: 3}
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  separationWeight: 2.5
 --- !u!61 &7813469864758057339
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -215,3 +194,78 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1668942002051741246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645176932764733227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2541d120e6e584f8c677e5830310d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIBase
+  <EnemyMaxHealth>k__BackingField: 25
+  <EnemyDamage>k__BackingField: 15
+  <AiSpeed>k__BackingField: 2.5
+  <StoppingDistance>k__BackingField: 1
+  <EnemyType>k__BackingField: 0
+  <EnemyPosition>k__BackingField: {fileID: 0}
+  <Radius>k__BackingField: 2
+  <TowerDamaging>k__BackingField: {fileID: 0}
+  <ExpOrb>k__BackingField: {fileID: 2032149441600424400, guid: 5fce2dfff7f73134ba94dfdc437a2927, type: 3}
+  <TargetLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
+  <SeparationWeight>k__BackingField: 0.15
+  imDead: 0
+  owner: {fileID: 0}
+--- !u!114 &2033437247616714005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645176932764733227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695198eaa12a470181214dc8359452f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AI.AIAttackSystem
+--- !u!114 &4004090053774117025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645176932764733227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676e862148cf46e8b93829a073ac0155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AI.AIHealthSystem
+--- !u!114 &4023958979523313071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645176932764733227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de904345c2444492bcaba76ae608fe5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AI.AIMovementSystem
+--- !u!114 &2379609238995196034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645176932764733227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f934156d51f4a14bcf2a72e541030be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AI.AISystem
