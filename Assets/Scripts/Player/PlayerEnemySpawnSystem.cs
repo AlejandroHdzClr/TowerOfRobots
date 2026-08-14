@@ -114,8 +114,8 @@ namespace Player
             
             AIBase enemy = AiPool.Get();
             enemy.transform.position = position;
-            enemy.enemyPosition = transform;
-            enemy.towerDamaging = damageSystem;
+            enemy.EnemyPosition = transform;
+            enemy.TowerDamaging = damageSystem;
         }
 
         private void Update()

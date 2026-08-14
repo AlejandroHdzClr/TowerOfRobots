@@ -14,185 +14,36 @@ public enum AIType
     Range
 }
 
-public class AIBase : MonoBehaviour, IDamageable
+public class AIBase : MonoBehaviour
 {
     [Header("Stats enemigo")]
-    [SerializeField] private float enemyMaxHealth;
-    [SerializeField] private float enemyDamage;
-    [SerializeField] private float aiSpeed;
-    [SerializeField] private float stoppingDistance;
-    [SerializeField] private AIType enemyType;
+    [field: SerializeField] public float EnemyMaxHealth { get; set; }
+    [field: SerializeField] public float EnemyDamage { get; set; }
+    [field: SerializeField] public float AiSpeed { get; private set; }
+    [field: SerializeField] public float StoppingDistance { get; private set; }
+    [field: SerializeField] public AIType EnemyType { get; private set; }
 
     [Header("PosicionDelJugador")]
-    [SerializeField] public Transform enemyPosition;
-    [SerializeField] private float radius;
+    [field: SerializeField] public Transform EnemyPosition { get; set; }
+    [field: SerializeField] public float Radius { get; private set; }
     
     [Header("Torre")]
-    [SerializeField] public TowerDamagingSystem towerDamaging;
-    private bool insideTower;
-    private float currentTime;
+    [field: SerializeField] public TowerDamagingSystem TowerDamaging { get; set; }
     
     [Header("Experiencia")]
-    [SerializeField] private GameObject expOrb;
+    [field: SerializeField] public GameObject ExpOrb { get; private set; }
     
     [Header("Separacion")]
-    [SerializeField] private LayerMask targetLayerMask;
-    [SerializeField] private float separationWeight = 1f;
+    [field: SerializeField] public LayerMask TargetLayerMask { get; private set; }
+    [field: SerializeField] public float SeparationWeight { get; private set; }
 
-    private float currentHealth;
-    private bool imDead=false;
+    public bool imDead=false;
     private bool buffAplied=false;
-    private Collider2D[] colliders;
-    private Collider2D ownCollider;
-    private Vector3 direction;
     public ObjectPool<AIBase> MyPool;
-    private PlayerEnemySpawnSystem owner;
-
-    void Awake()
-    {
-        currentHealth = enemyMaxHealth;
-        ownCollider = GetComponent<Collider2D>();
-    }
+    public PlayerEnemySpawnSystem owner;
 
     public void Init(PlayerEnemySpawnSystem playerEnemySpawnSystem)
     {
         owner = playerEnemySpawnSystem;
-
-        imDead = false;
-        insideTower = false;
-        buffAplied = false;
-
-        currentTime = 0f;
-
-        currentHealth = enemyMaxHealth;
-
-        if (ownCollider != null)
-            ownCollider.enabled = true;
-        
-
-        direction = Vector3.zero;
-
-        Debug.Log("Enemy Init completo");
-    }
-
-    
-    private void OnEnable()
-    {
-        AIEvents.OnEnemySpawn += ChangeMaxHealth;
-    } 
-    private void OnDisable()
-    {
-        AIEvents.OnEnemySpawn -= ChangeMaxHealth;
-    }
-
-    private void ChangeMaxHealth(float obj)
-    {
-        if (!buffAplied)
-        {
-            enemyMaxHealth *= 1f + (obj * 0.1f);
-            currentHealth = enemyMaxHealth;
-            enemyDamage *= 1f + (obj * 0.1f);
-            buffAplied=true;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        // --- VECTOR HACIA EL JUGADOR ---
-        Vector3 toTarget = (enemyPosition.position - transform.position).normalized;
-
-        // --- SEPARACIÓN ULTRA-BARATA (solo 1 enemigo cercano) ---
-        Collider2D nearest = Physics2D.OverlapCircle(transform.position, radius, targetLayerMask);
-
-        Vector3 separation = Vector3.zero;
-
-        if (nearest != null && nearest != ownCollider)
-        {
-            Vector3 away = transform.position - nearest.transform.position;
-            separation = away.normalized * separationWeight;
-        }
-
-        // --- DIRECCIÓN FINAL ---
-        direction = toTarget + separation;
-
-        // --- FLIP ---
-        transform.localScale = new Vector3(direction.x < 0 ? -1 : 1, 1, 1);
-
-        // --- DISTANCIA REAL AL JUGADOR ---
-        float distToTarget = Vector3.Distance(transform.position, enemyPosition.position);
-
-        if (distToTarget > stoppingDistance)
-        {
-            transform.Translate(direction.normalized * (aiSpeed * Time.deltaTime));
-        }
-    }
-
-    private void Update()
-    {
-        if (insideTower)
-        {
-            currentTime += Time.deltaTime;
-            if (currentTime >= towerDamaging.time)
-            {
-                TakeDamage(towerDamaging.GetDamage());
-                currentTime = 0f;
-                Debug.Log("He recibido daño por la torre");
-            }
-        }
-    }
-
-
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            if (!imDead)
-            {
-                Debug.Log("He muerto");
-                AIEvents.LocationingDeadPosition(transform);
-                imDead = true;
-                owner.EndOfAiEnemy(this);
-            }
-        }
-        else
-        {
-            Debug.Log("He sido atacado \n Mi vida restante es: " + currentHealth);
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.TryGetComponent(out IDamageable idamageable))
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                idamageable.TakeDamage(enemyDamage);
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Tower"))
-        {
-            Debug.Log(other.gameObject.name);
-            insideTower = true;
-        }
-    }
-    
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Tower"))
-        {
-            Debug.Log(other.gameObject.name);
-            insideTower = false;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, radius);
     }
 }
